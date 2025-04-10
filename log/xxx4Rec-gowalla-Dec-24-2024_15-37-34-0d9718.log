@@ -1,0 +1,249 @@
+Tue 24 Dec 2024 15:37:34 INFO  ['run.py']
+Tue 24 Dec 2024 15:37:34 INFO  
+General Hyper Parameters:
+gpu_id = 0
+use_gpu = True
+seed = 2025
+state = INFO
+reproducibility = True
+data_path = dataset/gowalla
+checkpoint_dir = saved
+show_progress = True
+save_dataset = False
+dataset_save_path = None
+save_dataloaders = False
+dataloaders_save_path = None
+log_wandb = False
+
+Training Hyper Parameters:
+epochs = 300
+train_batch_size = 2048
+learner = adam
+learning_rate = 0.001
+train_neg_sample_args = {'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}
+eval_step = 1
+stopping_step = 10
+clip_grad_norm = None
+weight_decay = 0.0
+loss_decimal_place = 4
+
+Evaluation Hyper Parameters:
+eval_args = {'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}
+repeatable = True
+metrics = ['Hit', 'NDCG', 'MRR']
+topk = [5, 10, 20]
+valid_metric = NDCG@10
+valid_metric_bigger = True
+eval_batch_size = 4096
+metric_decimal_place = 4
+
+Dataset Hyper Parameters:
+field_separator = 	
+seq_separator =  
+USER_ID_FIELD = user_id
+ITEM_ID_FIELD = item_id
+RATING_FIELD = rating
+TIME_FIELD = timestamp
+seq_len = None
+LABEL_FIELD = label
+threshold = None
+NEG_PREFIX = neg_
+load_col = {'inter': ['user_id', 'item_id', 'timestamp']}
+unload_col = None
+unused_col = None
+additional_feat_suffix = None
+rm_dup_inter = None
+val_interval = None
+filter_inter_by_user_or_item = True
+user_inter_num_interval = [5,inf)
+item_inter_num_interval = [5,inf)
+alias_of_user_id = None
+alias_of_item_id = None
+alias_of_entity_id = None
+alias_of_relation_id = None
+preload_weight = None
+normalize_field = None
+normalize_all = None
+ITEM_LIST_LENGTH_FIELD = item_length
+LIST_SUFFIX = _list
+MAX_ITEM_LIST_LENGTH = 50
+POSITION_FIELD = position_id
+HEAD_ENTITY_ID_FIELD = head_id
+TAIL_ENTITY_ID_FIELD = tail_id
+RELATION_ID_FIELD = relation_id
+ENTITY_ID_FIELD = entity_id
+benchmark_filename = None
+
+Other Hyper Parameters: 
+worker = 0
+wandb_project = recbole
+shuffle = True
+require_pow = False
+enable_amp = False
+enable_scaler = False
+transform = None
+numerical_features = []
+discretization = None
+kg_reverse_r = False
+entity_kg_num_interval = [0,inf)
+relation_kg_num_interval = [0,inf)
+MODEL_TYPE = ModelType.SEQUENTIAL
+hidden_size = 64
+num_layers = 2
+dropout_prob = 0.2
+loss_type = CE
+d_state = 32
+d_conv = 4
+expand = 2
+headdim = 16
+chunk_size = 32
+n_heads = 2
+attn_dropout_prob = 0.2
+train_from_scratch = False
+MODEL_INPUT_TYPE = InputType.POINTWISE
+eval_type = EvaluatorType.RANKING
+single_spec = True
+local_rank = 0
+device = cuda
+valid_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+test_neg_sample_args = {'distribution': 'uniform', 'sample_num': 'none'}
+
+
+Tue 24 Dec 2024 15:38:10 INFO  gowalla
+The number of users: 64116
+Average actions of users: 31.48126023551431
+The number of items: 164533
+Average actions of items: 12.267650061994019
+The number of inters: 2018421
+The sparsity of the dataset: 99.98086659257974%
+Remain Fields: ['user_id', 'item_id', 'timestamp']
+Tue 24 Dec 2024 15:38:37 INFO  [Training]: train_batch_size = [2048] train_neg_sample_args: [{'distribution': 'none', 'sample_num': 'none', 'alpha': 'none', 'dynamic': False, 'candidate_num': 0}]
+Tue 24 Dec 2024 15:38:37 INFO  [Evaluation]: eval_batch_size = [4096] eval_args: [{'split': {'LS': 'valid_and_test'}, 'order': 'TO', 'group_by': 'user', 'mode': {'valid': 'full', 'test': 'full'}}]
+Tue 24 Dec 2024 15:38:37 INFO  xxx4Rec(
+  (item_embedding): Embedding(164533, 64, padding_idx=0)
+  (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+  (dropout): Dropout(p=0.2, inplace=False)
+  (layers): ModuleList(
+    (0-1): 2 x Layer(
+      (mamba): Mamba2(
+        (in_proj): Linear(in_features=64, out_features=328, bias=False)
+        (conv1d): Conv1d(192, 192, kernel_size=(4,), stride=(1,), padding=(3,), groups=192)
+        (act): SiLU()
+        (norm): RMSNorm()
+        (out_proj): Linear(in_features=128, out_features=64, bias=False)
+      )
+      (dropout): Dropout(p=0.2, inplace=False)
+      (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+      (filter): FilterLayer(
+        (out_dropout): Dropout(p=0.2, inplace=False)
+        (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+      )
+      (ffn): FeedForward(
+        (w_1): Linear(in_features=64, out_features=256, bias=True)
+        (w_2): Linear(in_features=256, out_features=64, bias=True)
+        (activation): ReLU()
+        (dropout): Dropout(p=0.2, inplace=False)
+        (LayerNorm): LayerNorm((64,), eps=1e-12, elementwise_affine=True)
+      )
+    )
+  )
+  (loss_fct): CrossEntropyLoss()
+)
+Trainable parameters: 10664688
+Tue 24 Dec 2024 15:38:43 INFO  FLOPs: 5424064.0
+Tue 24 Dec 2024 15:39:53 INFO  epoch 0 training [time: 70.24s, train loss: 9684.0954]
+Tue 24 Dec 2024 15:39:54 INFO  epoch 0 evaluating [time: 1.44s, valid_score: 0.030400]
+Tue 24 Dec 2024 15:39:54 INFO  valid result: 
+hit@5 : 0.0365    hit@10 : 0.0539    hit@20 : 0.0754    ndcg@5 : 0.0249    ndcg@10 : 0.0304    ndcg@20 : 0.0358    mrr@5 : 0.021    mrr@10 : 0.0233    mrr@20 : 0.0248
+Tue 24 Dec 2024 15:39:56 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:40:58 INFO  epoch 1 training [time: 61.89s, train loss: 7817.4527]
+Tue 24 Dec 2024 15:41:00 INFO  epoch 1 evaluating [time: 1.45s, valid_score: 0.051800]
+Tue 24 Dec 2024 15:41:00 INFO  valid result: 
+hit@5 : 0.0631    hit@10 : 0.0923    hit@20 : 0.131    ndcg@5 : 0.0424    ndcg@10 : 0.0518    ndcg@20 : 0.0616    mrr@5 : 0.0356    mrr@10 : 0.0395    mrr@20 : 0.0422
+Tue 24 Dec 2024 15:41:02 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:42:04 INFO  epoch 2 training [time: 62.07s, train loss: 6798.8334]
+Tue 24 Dec 2024 15:42:05 INFO  epoch 2 evaluating [time: 1.45s, valid_score: 0.058200]
+Tue 24 Dec 2024 15:42:05 INFO  valid result: 
+hit@5 : 0.0699    hit@10 : 0.1069    hit@20 : 0.1564    ndcg@5 : 0.0462    ndcg@10 : 0.0582    ndcg@20 : 0.0706    mrr@5 : 0.0385    mrr@10 : 0.0434    mrr@20 : 0.0468
+Tue 24 Dec 2024 15:42:06 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:43:09 INFO  epoch 3 training [time: 62.08s, train loss: 6268.3770]
+Tue 24 Dec 2024 15:43:10 INFO  epoch 3 evaluating [time: 1.46s, valid_score: 0.062400]
+Tue 24 Dec 2024 15:43:10 INFO  valid result: 
+hit@5 : 0.0752    hit@10 : 0.1154    hit@20 : 0.1691    ndcg@5 : 0.0495    ndcg@10 : 0.0624    ndcg@20 : 0.0759    mrr@5 : 0.0411    mrr@10 : 0.0463    mrr@20 : 0.05
+Tue 24 Dec 2024 15:43:11 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:44:13 INFO  epoch 4 training [time: 62.12s, train loss: 5923.4297]
+Tue 24 Dec 2024 15:44:15 INFO  epoch 4 evaluating [time: 1.46s, valid_score: 0.062800]
+Tue 24 Dec 2024 15:44:15 INFO  valid result: 
+hit@5 : 0.076    hit@10 : 0.1157    hit@20 : 0.1716    ndcg@5 : 0.05    ndcg@10 : 0.0628    ndcg@20 : 0.0769    mrr@5 : 0.0416    mrr@10 : 0.0468    mrr@20 : 0.0506
+Tue 24 Dec 2024 15:44:16 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:45:18 INFO  epoch 5 training [time: 61.64s, train loss: 5678.1827]
+Tue 24 Dec 2024 15:45:19 INFO  epoch 5 evaluating [time: 1.46s, valid_score: 0.062600]
+Tue 24 Dec 2024 15:45:19 INFO  valid result: 
+hit@5 : 0.076    hit@10 : 0.1168    hit@20 : 0.1716    ndcg@5 : 0.0495    ndcg@10 : 0.0626    ndcg@20 : 0.0764    mrr@5 : 0.0409    mrr@10 : 0.0462    mrr@20 : 0.05
+Tue 24 Dec 2024 15:46:21 INFO  epoch 6 training [time: 61.60s, train loss: 5498.6680]
+Tue 24 Dec 2024 15:46:22 INFO  epoch 6 evaluating [time: 1.46s, valid_score: 0.062000]
+Tue 24 Dec 2024 15:46:22 INFO  valid result: 
+hit@5 : 0.0743    hit@10 : 0.1156    hit@20 : 0.1716    ndcg@5 : 0.0488    ndcg@10 : 0.062    ndcg@20 : 0.0761    mrr@5 : 0.0404    mrr@10 : 0.0458    mrr@20 : 0.0496
+Tue 24 Dec 2024 15:47:24 INFO  epoch 7 training [time: 61.91s, train loss: 5360.2827]
+Tue 24 Dec 2024 15:47:26 INFO  epoch 7 evaluating [time: 1.48s, valid_score: 0.063300]
+Tue 24 Dec 2024 15:47:26 INFO  valid result: 
+hit@5 : 0.0763    hit@10 : 0.1164    hit@20 : 0.1697    ndcg@5 : 0.0504    ndcg@10 : 0.0633    ndcg@20 : 0.0767    mrr@5 : 0.042    mrr@10 : 0.0473    mrr@20 : 0.0509
+Tue 24 Dec 2024 15:47:29 INFO  Saving current: saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:48:30 INFO  epoch 8 training [time: 61.75s, train loss: 5251.5684]
+Tue 24 Dec 2024 15:48:32 INFO  epoch 8 evaluating [time: 1.46s, valid_score: 0.061600]
+Tue 24 Dec 2024 15:48:32 INFO  valid result: 
+hit@5 : 0.0742    hit@10 : 0.1138    hit@20 : 0.1663    ndcg@5 : 0.0489    ndcg@10 : 0.0616    ndcg@20 : 0.0749    mrr@5 : 0.0407    mrr@10 : 0.0459    mrr@20 : 0.0495
+Tue 24 Dec 2024 15:49:34 INFO  epoch 9 training [time: 61.66s, train loss: 5160.7286]
+Tue 24 Dec 2024 15:49:35 INFO  epoch 9 evaluating [time: 1.45s, valid_score: 0.060900]
+Tue 24 Dec 2024 15:49:35 INFO  valid result: 
+hit@5 : 0.0738    hit@10 : 0.1127    hit@20 : 0.1645    ndcg@5 : 0.0484    ndcg@10 : 0.0609    ndcg@20 : 0.0739    mrr@5 : 0.0401    mrr@10 : 0.0452    mrr@20 : 0.0487
+Tue 24 Dec 2024 15:50:37 INFO  epoch 10 training [time: 61.54s, train loss: 5086.4988]
+Tue 24 Dec 2024 15:50:38 INFO  epoch 10 evaluating [time: 1.46s, valid_score: 0.060200]
+Tue 24 Dec 2024 15:50:38 INFO  valid result: 
+hit@5 : 0.0718    hit@10 : 0.1123    hit@20 : 0.164    ndcg@5 : 0.0472    ndcg@10 : 0.0602    ndcg@20 : 0.0732    mrr@5 : 0.0392    mrr@10 : 0.0445    mrr@20 : 0.048
+Tue 24 Dec 2024 15:51:40 INFO  epoch 11 training [time: 61.81s, train loss: 5020.5348]
+Tue 24 Dec 2024 15:51:41 INFO  epoch 11 evaluating [time: 1.45s, valid_score: 0.060200]
+Tue 24 Dec 2024 15:51:41 INFO  valid result: 
+hit@5 : 0.073    hit@10 : 0.1112    hit@20 : 0.1635    ndcg@5 : 0.048    ndcg@10 : 0.0602    ndcg@20 : 0.0734    mrr@5 : 0.0398    mrr@10 : 0.0448    mrr@20 : 0.0484
+Tue 24 Dec 2024 15:52:43 INFO  epoch 12 training [time: 61.97s, train loss: 4964.7322]
+Tue 24 Dec 2024 15:52:45 INFO  epoch 12 evaluating [time: 1.46s, valid_score: 0.059300]
+Tue 24 Dec 2024 15:52:45 INFO  valid result: 
+hit@5 : 0.0709    hit@10 : 0.1102    hit@20 : 0.1624    ndcg@5 : 0.0467    ndcg@10 : 0.0593    ndcg@20 : 0.0724    mrr@5 : 0.0387    mrr@10 : 0.0439    mrr@20 : 0.0475
+Tue 24 Dec 2024 15:53:46 INFO  epoch 13 training [time: 61.78s, train loss: 4914.3199]
+Tue 24 Dec 2024 15:53:48 INFO  epoch 13 evaluating [time: 1.46s, valid_score: 0.059900]
+Tue 24 Dec 2024 15:53:48 INFO  valid result: 
+hit@5 : 0.0725    hit@10 : 0.1102    hit@20 : 0.1616    ndcg@5 : 0.0478    ndcg@10 : 0.0599    ndcg@20 : 0.0728    mrr@5 : 0.0397    mrr@10 : 0.0447    mrr@20 : 0.0482
+Tue 24 Dec 2024 15:54:50 INFO  epoch 14 training [time: 61.60s, train loss: 4870.2026]
+Tue 24 Dec 2024 15:54:51 INFO  epoch 14 evaluating [time: 1.46s, valid_score: 0.058900]
+Tue 24 Dec 2024 15:54:51 INFO  valid result: 
+hit@5 : 0.0705    hit@10 : 0.1088    hit@20 : 0.1612    ndcg@5 : 0.0466    ndcg@10 : 0.0589    ndcg@20 : 0.0721    mrr@5 : 0.0387    mrr@10 : 0.0438    mrr@20 : 0.0474
+Tue 24 Dec 2024 15:55:53 INFO  epoch 15 training [time: 61.82s, train loss: 4829.5726]
+Tue 24 Dec 2024 15:55:54 INFO  epoch 15 evaluating [time: 1.47s, valid_score: 0.058300]
+Tue 24 Dec 2024 15:55:54 INFO  valid result: 
+hit@5 : 0.0693    hit@10 : 0.1083    hit@20 : 0.159    ndcg@5 : 0.0457    ndcg@10 : 0.0583    ndcg@20 : 0.071    mrr@5 : 0.038    mrr@10 : 0.0432    mrr@20 : 0.0466
+Tue 24 Dec 2024 15:56:57 INFO  epoch 16 training [time: 62.66s, train loss: 4791.4592]
+Tue 24 Dec 2024 15:56:58 INFO  epoch 16 evaluating [time: 1.46s, valid_score: 0.059300]
+Tue 24 Dec 2024 15:56:58 INFO  valid result: 
+hit@5 : 0.0712    hit@10 : 0.1098    hit@20 : 0.1614    ndcg@5 : 0.0469    ndcg@10 : 0.0593    ndcg@20 : 0.0723    mrr@5 : 0.039    mrr@10 : 0.0441    mrr@20 : 0.0476
+Tue 24 Dec 2024 15:58:00 INFO  epoch 17 training [time: 61.97s, train loss: 4758.6863]
+Tue 24 Dec 2024 15:58:02 INFO  epoch 17 evaluating [time: 1.46s, valid_score: 0.058800]
+Tue 24 Dec 2024 15:58:02 INFO  valid result: 
+hit@5 : 0.0708    hit@10 : 0.1089    hit@20 : 0.1586    ndcg@5 : 0.0465    ndcg@10 : 0.0588    ndcg@20 : 0.0713    mrr@5 : 0.0386    mrr@10 : 0.0436    mrr@20 : 0.047
+Tue 24 Dec 2024 15:59:04 INFO  epoch 18 training [time: 62.05s, train loss: 4727.0713]
+Tue 24 Dec 2024 15:59:05 INFO  epoch 18 evaluating [time: 1.46s, valid_score: 0.058100]
+Tue 24 Dec 2024 15:59:05 INFO  valid result: 
+hit@5 : 0.0702    hit@10 : 0.108    hit@20 : 0.1577    ndcg@5 : 0.0459    ndcg@10 : 0.0581    ndcg@20 : 0.0706    mrr@5 : 0.038    mrr@10 : 0.043    mrr@20 : 0.0464
+Tue 24 Dec 2024 15:59:05 INFO  Finished training, best eval result in epoch 7
+Tue 24 Dec 2024 15:59:07 INFO  Loading model structure and parameters from saved/xxx4Rec-Dec-24-2024_15-38-43.pth
+Tue 24 Dec 2024 15:59:09 INFO  The running environment of this training is as follows:
++-------------+-----------------+
+| Environment |      Usage      |
++=============+=================+
+| CPU         |     14.60 %     |
++-------------+-----------------+
+| GPU         | 16.39 G/23.68 G |
++-------------+-----------------+
+| Memory      | 3.63 G/755.17 G |
++-------------+-----------------+
+Tue 24 Dec 2024 15:59:09 INFO  best valid : OrderedDict([('hit@5', 0.0763), ('hit@10', 0.1164), ('hit@20', 0.1697), ('ndcg@5', 0.0504), ('ndcg@10', 0.0633), ('ndcg@20', 0.0767), ('mrr@5', 0.042), ('mrr@10', 0.0473), ('mrr@20', 0.0509)])
+Tue 24 Dec 2024 15:59:09 INFO  test result: OrderedDict([('hit@5', 0.0761), ('hit@10', 0.1135), ('hit@20', 0.1637), ('ndcg@5', 0.0515), ('ndcg@10', 0.0636), ('ndcg@20', 0.0762), ('mrr@5', 0.0435), ('mrr@10', 0.0484), ('mrr@20', 0.0518)])
