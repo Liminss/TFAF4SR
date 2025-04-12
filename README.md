@@ -6,4 +6,5 @@ Source code for our Paper "Time-Frequency Adaptive Fusion for Sequential Recomme
 * Pytorch 2.0.0
 * Cuda 11.8
 * Install RecBole:
-  ```pip install RecBole```
+  
+ ```pip install RecBole```
