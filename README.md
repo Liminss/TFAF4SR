@@ -6,4 +6,4 @@ Source code for our Paper "Time-Frequency Adaptive Fusion for Sequential Recomme
 * Pytorch 2.0.0
 * Cuda 11.8
 * Install RecBole:```pip install RecBole```
-* Install causal Conv1d and the core Mamba package:```pip install causal-conv1d>=1.2.0``` ```pip install mamba-ssm```
+* Install causal Conv1d and the core Mamba package:```pip install causal-conv1d>=1.4.0``` ```pip install mamba-ssm>=2.2.2```
